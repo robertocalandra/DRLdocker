@@ -3,7 +3,11 @@
 
 Run using:
 ```
-nvidia-docker run robcal/drldocker
+nvidia-docker run -it -p 8888:8888 robcal/drldocker
+```
+or
+```
+docker run -it -p 8888:8888 robcal/drldocker
 ```
 
 Connect to Jupyter by typing in your browser:
