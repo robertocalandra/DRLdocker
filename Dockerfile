@@ -4,7 +4,16 @@ FROM gcr.io/tensorflow/tensorflow:latest-gpu
 # Image maintainer:
 MAINTAINER roberto.calandra@berkeley.edu
 
-# ----- Install GPS (http://rll.berkeley.edu/gps/) -----
+####################################################################
+# Anaconda https://hub.docker.com/r/drunkar/anaconda-tensorflow-gpu/~/dockerfile/
+####################################################################
+
+
+
+####################################################################
+# Install GPS (http://rll.berkeley.edu/gps/) 
+####################################################################
+
 RUN apt-get update && apt-get install -y \
 	git \
 	libprotobuf-dev \
@@ -14,6 +23,18 @@ RUN pip install protobuf
 RUN git clone https://github.com/cbfinn/gps.git
 # WORKDIR "/gps/"
 RUN chmod +x gps/compile_proto.sh
+# Clean up
+# rm 
+
+####################################################################
+# MuJoCo
+####################################################################
+
+
+####################################################################
+# Project Malmo
+####################################################################
+
 
 # COPY -> to copy files/data
 
