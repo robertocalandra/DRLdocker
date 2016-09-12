@@ -1,7 +1,7 @@
 # DRLdocker
 
-[![](https://images.microbadger.com/badges/image/robcal/drldocker.svg)](http://microbadger.com/images/robcal/drldocker "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/robcal/drldocker.svg)](http://microbadger.com/images/robcal/drldocker "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/robcal/drldocker.svg)](https://hub.docker.com/r/robcal/drldocker/ "")
+[![](https://images.microbadger.com/badges/version/robcal/drldocker.svg)](https://hub.docker.com/r/robcal/drldocker/ "")
 
 If using GPU(s) run using:
 ```
