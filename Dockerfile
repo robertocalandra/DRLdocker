@@ -5,8 +5,10 @@ FROM gcr.io/tensorflow/tensorflow:latest-gpu
 # Image maintainer:
 MAINTAINER roberto.calandra@berkeley.edu
 
-
-ENV MUJOCO 140
+# Version of dependencies
+ENV UBUNTU="14.04" \\
+	MUJOCO="140" \\
+	MALMO="0.15.0"
 
 ####################################################################
 # Install TensorFlow
@@ -24,6 +26,7 @@ ENV MUJOCO 140
 ####################################################################
 
 RUN apt-get update && apt-get install -y \
+		unzip \
 		git \
 		libprotobuf-dev \
 		libboost-all-dev 
@@ -48,11 +51,13 @@ RUN apt-get update && apt-get install -y \
 		openscenegraph \
 		libopenscenegraph-dev \
 		wget
-RUN wget https://www.roboti.us/download/mjpro$MUJOCO_linux.zip
-RUN rm mjpro$MUJOCO_linux.zip
+RUN wget https://www.roboti.us/download/mjpro140_linux.zip
+RUN unzip mjpro140_linux.zip
+RUN rm mjpro140_linux.zip
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/gps/build/lib
 # export PYTHONPATH=$PYTHONPATH:/path/to/gps/build/lib
 # source ~/.bashrc
+
 
 ####################################################################
 # ROS (Requires Ubuntu >15) (http://wiki.ros.org/kinetic/Installation/Ubuntu)
@@ -69,6 +74,11 @@ RUN rm mjpro$MUJOCO_linux.zip
 # Project Malmo
 ####################################################################
 
+RUN wget https://github.com/Microsoft/malmo/releases/download/0.15.0/Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
+RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
+
+#cd Malmo-0.15.0-Linux-Ubuntu-14.04-64bit/Minecraft
+#./launchClient.sh
 
 
 ####################################################################
@@ -90,5 +100,5 @@ WORKDIR "/notebooks"
 CMD echo "Starting GPS" 
 CMD ["python python/gps/gps_main.py"]
 
-# Start Jupyter Notebook
+# Start Jupyter Notebook for interactive mode
 CMD ["/run_jupyter.sh"]
