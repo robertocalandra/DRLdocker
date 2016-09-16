@@ -1,5 +1,5 @@
 # Start from the lastest version of Tensorflow with GPU support
-FROM gcr.io/tensorflow/tensorflow:latest-gpu
+FROM gcr.io/tensorflow/tensorflow:nightly-gpu
 # FROM nvidia/cuda:8.0-cudnn5-devel # -> perhaps necessary to have ubuntu 16?
 
 # Image maintainer:
