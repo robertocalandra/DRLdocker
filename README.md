@@ -19,3 +19,8 @@ http://localhost:8888/tree
 ```
 (where 8888 is the port passed as parameter)
 
+To build the image locally type:
+```
+docker build .
+```
+from within the folder.

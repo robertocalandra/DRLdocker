@@ -1,5 +1,5 @@
 # Start from the lastest version of Tensorflow with GPU support
-FROM gcr.io/tensorflow/tensorflow:nightly-gpu
+FROM tensorflow/tensorflow:nightly-gpu
 # FROM nvidia/cuda:8.0-cudnn5-devel # -> perhaps necessary to have ubuntu 16?
 
 # Image maintainer:
@@ -8,7 +8,8 @@ MAINTAINER roberto.calandra@berkeley.edu
 # Version of dependencies
 ENV UBUNTU="14.04" \\
 	MUJOCO="140" \\
-	MALMO="0.15.0"
+	MALMO="0.15.0" \\
+	ROS="Indigo"
 
 ####################################################################
 # Install TensorFlow
@@ -48,9 +49,11 @@ RUN apt-get update && apt-get install -y \
 ####################################################################
 
 RUN apt-get update && apt-get install -y \
+		unzip \
 		openscenegraph \
 		libopenscenegraph-dev \
 		wget
+		
 RUN wget https://www.roboti.us/download/mjpro140_linux.zip
 RUN unzip mjpro140_linux.zip
 RUN rm mjpro140_linux.zip
@@ -60,25 +63,31 @@ RUN rm mjpro140_linux.zip
 
 
 ####################################################################
-# ROS (Requires Ubuntu >15) (http://wiki.ros.org/kinetic/Installation/Ubuntu)
+# ROS (http://wiki.ros.org/kinetic/Installation/Ubuntu)
 ####################################################################
 
-# RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
-# 	apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116 && \
-# 	apt-get update && apt-get install -y \
-# 		ros-kinetic-desktop-full \
-# 		python-rosinstall
+# NOTE: Kinetic requires Ubuntu >15)
+
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
+ 	apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116 && \
+ 	apt-get update && apt-get install -y \
+ 		ros-indigo-desktop-full \
+ 		python-rosinstall
 	
 
 ####################################################################
 # Project Malmo
 ####################################################################
 
+RUN apt-get update && apt-get install -y \
+		unzip \
+		wget
+		
 RUN wget https://github.com/Microsoft/malmo/releases/download/0.15.0/Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 #cd Malmo-0.15.0-Linux-Ubuntu-14.04-64bit/Minecraft
 #./launchClient.sh
-RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
+RUN rm Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 
 
 ####################################################################
