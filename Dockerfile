@@ -78,7 +78,7 @@ RUN wget https://github.com/Microsoft/malmo/releases/download/0.15.0/Malmo-0.15.
 RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 #cd Malmo-0.15.0-Linux-Ubuntu-14.04-64bit/Minecraft
 #./launchClient.sh
-RUN rm unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
+RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 
 
 ####################################################################
