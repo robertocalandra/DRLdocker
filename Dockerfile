@@ -96,7 +96,10 @@ RUN rm Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
-# COPY -> to copy files/data
+# Default directory that will be saved by htcondor
+RUN mkdir /notebooks/results
+
+# COPY -> to copy files/data from to localmachine
 
 # TensorBoard
 EXPOSE 6006
