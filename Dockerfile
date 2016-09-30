@@ -105,8 +105,8 @@ RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
 # Default directory that will be saved by htcondor
-RUN mkdir /results
-RUN nvidia-smi -f /results/temp.txt
+RUN mkdir /tmp/results
+RUN nvidia-smi -f /tmp/temp.txt
 
 # COPY -> to copy files/data from to localmachine
 
@@ -122,4 +122,4 @@ WORKDIR "/notebooks"
 #CMD ["python python/gps/gps_main.py"]
 
 # Start Jupyter Notebook for interactive mode
-CMD ["/run_jupyter.sh"]
+#CMD ["/run_jupyter.sh"]
