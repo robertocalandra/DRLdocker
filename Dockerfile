@@ -7,7 +7,7 @@ MAINTAINER roberto.calandra@berkeley.edu
 
 # Version of dependencies
 ENV UBUNTU="14.04" \\
-	MUJOCO="140" \\
+	MUJOCO="131" \\
 	MALMO="0.15.0" \\
 	ROS="Indigo"
 
@@ -52,14 +52,18 @@ RUN apt-get update && apt-get install -y \
 		unzip \
 		openscenegraph \
 		libopenscenegraph-dev \
-		wget
+		wget \ 
+		xvfb
 		
-RUN wget https://www.roboti.us/download/mjpro140_linux.zip
-RUN unzip mjpro140_linux.zip
-RUN rm mjpro140_linux.zip
+RUN wget https://www.roboti.us/download/mjpro131_linux.zip
+RUN unzip mjpro131_linux.zip
+
+# RUN pip install mujoco-py # This is for compatibility with OpenAIGym
+# If you want to install for GPS run this
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/gps/build/lib
 # export PYTHONPATH=$PYTHONPATH:/path/to/gps/build/lib
 # source ~/.bashrc
+RUN rm mjpro131_linux.zip
 
 
 ####################################################################
@@ -73,7 +77,11 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
  	apt-get update && apt-get install -y \
  		ros-indigo-desktop-full \
  		python-rosinstall
-	
+
+#RUN sudo rosdep init
+#RUN rosdep update
+#RUN echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
+#RUN source ~/.bashrc
 
 ####################################################################
 # Project Malmo
@@ -85,9 +93,9 @@ RUN apt-get update && apt-get install -y \
 		
 RUN wget https://github.com/Microsoft/malmo/releases/download/0.15.0/Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 RUN unzip Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
-RUN rm Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 #cd Malmo-0.15.0-Linux-Ubuntu-14.04-64bit/Minecraft
 #./launchClient.sh
+RUN rm Malmo-0.15.0-Linux-Ubuntu-14.04-64bit.zip
 
 
 ####################################################################
@@ -97,7 +105,8 @@ RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
 # Default directory that will be saved by htcondor
-RUN mkdir /notebooks/results
+RUN mkdir /results
+RUN nvidia-smi -f /results/temp.txt
 
 # COPY -> to copy files/data from to localmachine
 

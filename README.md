@@ -21,6 +21,6 @@ http://localhost:8888/tree
 
 To build the image locally type:
 ```
-docker build --t drldocker.
+docker build --t drldocker .
 ```
 from within the folder.
