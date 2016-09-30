@@ -106,7 +106,7 @@ RUN apt-get clean && \
 
 # Default directory that will be saved by htcondor
 RUN mkdir /tmp/results
-RUN nvidia-smi -f /tmp/temp.txt
+#RUN nvidia-smi -f /tmp/temp.txt
 
 # COPY -> to copy files/data from to localmachine
 
