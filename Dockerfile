@@ -43,6 +43,28 @@ RUN apt-get update && apt-get install -y \
 	# Clean up
 	# rm 
 
+####################################################################
+# OpenAI Gym
+####################################################################
+
+RUN apt-get update && apt-get install -y \
+		python-numpy \
+		python-dev \
+		cmake \
+		zlib1g-dev \
+		libjpeg-dev \
+		xvfb \
+		libav-tools \
+		xorg-dev \
+		python-opengl \
+		libboost-all-dev \
+		libsdl2-dev \
+		swig \
+		git
+		
+	RUN git clone https://github.com/openai/gym.git
+	RUN cd gym
+	RUN pip install -e '.[all]'
 
 ####################################################################
 # MuJoCo
@@ -55,22 +77,22 @@ RUN apt-get update && apt-get install -y \
 		wget \ 
 		xvfb
 		
-RUN wget https://www.roboti.us/download/mjpro131_linux.zip
-RUN unzip mjpro131_linux.zip
+	RUN wget https://www.roboti.us/download/mjpro131_linux.zip
+	RUN unzip mjpro131_linux.zip
 
 # RUN pip install mujoco-py # This is for compatibility with OpenAIGym
 # If you want to install for GPS run this
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/to/gps/build/lib
 # export PYTHONPATH=$PYTHONPATH:/path/to/gps/build/lib
 # source ~/.bashrc
-RUN rm mjpro131_linux.zip
+	RUN rm mjpro131_linux.zip
 
 
 ####################################################################
 # ROS (http://wiki.ros.org/kinetic/Installation/Ubuntu)
 ####################################################################
 
-# NOTE: Kinetic requires Ubuntu >15)
+# NOTE: Kinetic requires Ubuntu >15
 
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list' && \
  	apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 0xB01FA116 && \
@@ -78,10 +100,23 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
  		ros-indigo-desktop-full \
  		python-rosinstall
 
-#RUN sudo rosdep init
+RUN sudo rosdep init \
+	&& rosdep update
 #RUN rosdep update
 #RUN echo "source /opt/ros/indigo/setup.bash" >> ~/.bashrc
 #RUN source ~/.bashrc
+
+####################################################################
+# Gazebo
+####################################################################
+
+RUN sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+
+RUN wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+
+RUN apt-get update && apt-get install -y \
+		gazebo7 \
+		libgazebo7-dev
 
 ####################################################################
 # Project Malmo
@@ -105,7 +140,7 @@ RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
 # Default directory that will be saved by htcondor
-RUN mkdir /tmp/results
+3RUN mkdir /tmp/results
 #RUN nvidia-smi -f /tmp/temp.txt
 
 # COPY -> to copy files/data from to localmachine
