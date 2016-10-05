@@ -63,8 +63,7 @@ RUN apt-get update && apt-get install -y \
 		git
 		
 	RUN git clone https://github.com/openai/gym.git
-	RUN cd gym
-	RUN pip install -e '.[all]'
+	RUN cd gym && pip install -e '.[all]'
 
 ####################################################################
 # MuJoCo
@@ -140,7 +139,7 @@ RUN apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
 
 # Default directory that will be saved by htcondor
-3RUN mkdir /tmp/results
+#RUN mkdir /tmp/results
 #RUN nvidia-smi -f /tmp/temp.txt
 
 # COPY -> to copy files/data from to localmachine
