@@ -116,9 +116,9 @@ RUN sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable
 
 RUN wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 
-RUN apt-get update && apt-get install -y \
-		gazebo7 \
-		libgazebo7-dev
+# RUN apt-get update && apt-get install -y \
+#		gazebo7 \
+#		libgazebo7-dev
 
 ####################################################################
 # Project Malmo
