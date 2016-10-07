@@ -11,6 +11,9 @@ ENV UBUNTU="14.04" \\
 	MALMO="0.15.0" \\
 	ROS="Indigo"
 
+RUN mkdir -p /home/condor
+RUN echo 'condor::65534:0::/home/condor:/bin/bash' >> /etc/passwd
+ 
 ####################################################################
 # Install TensorFlow
 ####################################################################
